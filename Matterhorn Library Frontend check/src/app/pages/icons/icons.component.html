@@ -1,0 +1,68 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-8">
+      <div class=" card">
+        <div class=" card-header">
+          <h5 class=" title">Search Book</h5>
+        </div>
+        <div class=" card-body">
+          <div class="row">
+
+            <label class="col-2">
+              Book Name :
+            </label>
+
+            <input class="col-3" type="text" [(ngModel)]="Name">
+
+            <div class="col-3">
+              <!-- using font awesome icons can be taken as below -->
+              <i class="fab fa-sistrix fa-2x" (click)="search(Name)"></i>
+            </div>
+
+            <div *ngIf="searchClicked && loaderStatus" class="loader"></div>
+           
+            <button type="reset" ejs-button class="col-3" (click)="refresh()">Clear Search</button>
+
+          </div>
+
+          <br>
+
+          <div *ngIf="searchClicked && booksFound && booksFound.length>0" layout-align="end none">
+            <div class="row">
+              <div class="col-2" [style.color]="'black'">Book name</div>
+              <div class="col-2" [style.color]="'black'">Author name</div>
+              <div class="col-2" [style.color]="'black'"> Shelf no</div>
+            </div>
+            
+            <div *ngFor="let book of booksFound">
+
+              <div class="row">
+                <div class="col-2" [style.color]="'orange'">{{book.book_name}}</div>
+                <div class="col-2" [style.color]="'orange'">{{book.author_name}}</div>
+                <div class="col-2" [style.color]="'orange'"> {{book.shelf_no}} </div>
+                <input class="col-1" type="button" *ngIf="!book.updateClicked" (click)="update(book)" value="Update"
+                  class="btn btn-success">
+                <input class="col-1" type="button" *ngIf="book.updateClicked" (click)="save(book)" value="Save"
+                  class="btn btn-danger">
+                <pre>   </pre>
+                <input type="text" name="input" *ngIf="book.updateClicked" [(ngModel)]="book.shelf_no">
+                <p></p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div *ngIf="searchClicked && (!booksFound || booksFound.length==0)" [style.color]="'red'"> Book not found!</div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
